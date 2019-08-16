@@ -1,0 +1,20 @@
+stages:
+  - deploy
+
+pages:
+  stage: deploy
+  script:
+    - mkdir public
+    - echo '<html><head><META http-equiv="refresh" content="1;URL=https://doc.interno.incuca.net"></head></html>' > public/index.html
+  artifacts:
+    paths:
+      - public/index.html
+  only:
+    - master
+
+deployToAWS:
+  only:
+    - master
+  stage: deploy
+  script:
+    - bash deploy.sh

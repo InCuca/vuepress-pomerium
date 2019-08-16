@@ -1,0 +1,28 @@
+{
+  "name": "doc",
+  "version": "1.0.0",
+  "description": "Documentação da InCuca",
+  "main": "README.md",
+  "scripts": {
+    "dev": "vuepress dev",
+    "build": "vuepress build -d public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.com:incuca/internos/doc.git"
+  },
+  "keywords": [
+    "doc",
+    "documentação"
+  ],
+  "author": "Producao at InCuca",
+  "license": "ISC",
+  "devDependencies": {
+    "vuepress": "^1.0.0-alpha.47"
+  },
+  "dependencies": {
+    "glob": "^7.1.4",
+    "js-sha1": "^0.6.0",
+    "markdown-it-task-lists": "^2.1.1"
+  }
+}

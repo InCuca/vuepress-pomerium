@@ -1,0 +1,5 @@
+- from: doc.interno.incuca.net
+  to: http://doc:8080
+  allowed_domains:
+      - incuca.com.br
+  cors_allow_preflight: true

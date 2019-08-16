@@ -1,0 +1,12 @@
+version: '3'
+services:
+  doc:
+    image: danjellz/http-server
+    volumes:
+      - ./public:/public
+    networks:
+      - interno
+networks:
+  interno:
+    external:
+      name: interno_bridge

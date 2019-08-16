@@ -1,0 +1,39 @@
+# Google Pomerium configuration.
+#
+# NOTE! Change IDP_* settings to match your identity provider settings!
+# NOTE! Generate new SHARED_SECRET and COOKIE_SECRET keys! e.g. `head -c32 /dev/urandom | base64`
+# NOTE! Replace `interno.incuca.net` with whatever your domain is
+# NOTE! Make sure certificate files (cert.pem/privkey.pem) are in the same directory as this file
+# NOTE! Make sure your policy file (policy.example.yaml) is in the same directory as this file
+
+version: "3.5"
+services:
+  pomerium:
+    image: pomerium/pomerium:latest # or `build: .` to build from source
+    restart: always
+    environment:
+      - POMERIUM_DEBUG=true
+      - SERVICES=all
+      - IDP_PROVIDER=google
+      - IDP_PROVIDER_URL=https://accounts.google.com
+      - IDP_CLIENT_ID=foobar.apps.googleusercontent.com
+      - IDP_CLIENT_SECRET=hackme
+      - IDP_SERVICE_ACCOUNT=foobar # output of `cat service-account-key.json | base64 -w 0`
+      - SHARED_SECRET=hackme
+      - COOKIE_SECRET=hackme
+      - CERTIFICATE_FILE=cert.pem
+      - CERTIFICATE_KEY_FILE=privkey.pem
+      - AUTHENTICATE_SERVICE_URL=https://authenticate.interno.incuca.net
+      - AUTHORIZE_SERVICE_URL=https://authorize.interno.incuca.net
+      - POLICY_FILE=./policy.yaml
+    volumes:
+      - ./certs/fullchain.cer:/pomerium/cert.pem:ro
+      - ./certs/*.interno.incuca.net.key:/pomerium/privkey.pem:ro
+      - ./policy.yaml:/pomerium/policy.yaml:ro
+    ports:
+      - 443:443
+    networks:
+      - interno
+networks:
+  interno:
+    name: interno_bridge

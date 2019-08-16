@@ -1,0 +1,9 @@
+stages:
+  - deploy
+
+deployToAWS:
+  only:
+    - master
+  stage: deploy
+  script:
+    - bash deploy.sh
